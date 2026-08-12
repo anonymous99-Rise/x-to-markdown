@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>X 帖子存档</title></head>
+<body><main class="card">
+  <header><div class="mark">X</div><div><p class="eyebrow">POST · ARCHIVE</p><h1>帖子存档</h1></div></header>
+  <section id="loading" class="state"><span class="spinner"></span><p>正在识别当前帖子…</p></section>
+  <section id="ready" class="post hidden"><p class="status"><span></span>已识别 X 帖子</p><h2 id="author"></h2><p id="preview" class="preview"></p>
+    <label class="option"><span><strong>下载帖子图片</strong><small>导出 ZIP，离线查看图片</small></span><input id="download-images" type="checkbox" role="switch"><span class="switch"></span></label>
+    <button id="save" type="button"><span id="save-label">保存 Markdown</span><span>↓</span></button><p id="feedback" class="feedback"></p>
+  </section>
+  <section id="unsupported" class="state hidden"><div class="empty">↗</div><h2>当前页面暂不支持</h2><p id="error-message">请打开一条 X 帖子的详情页。</p></section>
+</main><script type="module" src="./index.ts"></script></body></html>
