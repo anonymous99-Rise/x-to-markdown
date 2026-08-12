@@ -2,7 +2,7 @@ import type { ManifestV3Export } from '@crxjs/vite-plugin'
 
 const manifest: ManifestV3Export = {
   manifest_version: 3,
-  name: 'X 帖子存档',
+  name: 'X to Markdown',
   description: '把当前 X 帖子和图片保存为本地 Markdown 归档。',
   version: '0.1.0',
   permissions: ['activeTab', 'downloads', 'storage'],

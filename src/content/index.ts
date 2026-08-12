@@ -23,9 +23,9 @@ function summary(result: ExportResponse, images: boolean): string {
 }
 
 function mountQuickSave(): void {
-  if (!isPostPage() || document.querySelector('#x-read-entry')) return
+  if (!isPostPage() || document.querySelector('#x-to-markdown-entry')) return
   const host = document.createElement('div')
-  host.id = 'x-read-entry'
+  host.id = 'x-to-markdown-entry'
   const shadow = host.attachShadow({ mode: 'closed' })
   shadow.innerHTML = `<style>
     :host{all:initial}.wrap{position:fixed;right:24px;bottom:148px;z-index:2147483647;display:grid;justify-items:end;gap:9px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}

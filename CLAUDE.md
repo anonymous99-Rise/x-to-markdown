@@ -1,4 +1,4 @@
-# X Read 项目规范
+# X to Markdown 项目规范
 
 ## 产品目标
 
