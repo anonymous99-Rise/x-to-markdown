@@ -28,7 +28,7 @@ function mountQuickSave(): void {
   host.id = 'x-read-entry'
   const shadow = host.attachShadow({ mode: 'closed' })
   shadow.innerHTML = `<style>
-    :host{all:initial}.wrap{position:fixed;right:24px;bottom:28px;z-index:2147483647;display:grid;justify-items:end;gap:9px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    :host{all:initial}.wrap{position:fixed;right:24px;bottom:148px;z-index:2147483647;display:grid;justify-items:end;gap:9px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     button{width:48px;height:48px;border:1px solid #2f3336;border-radius:50%;color:#fff;background:#0f1419;box-shadow:0 8px 24px #0004;font:700 17px/1 sans-serif;cursor:pointer;transition:transform .16s,background .16s}button:hover{transform:translateY(-2px);background:#1d9bf0}button:focus-visible{outline:3px solid #8ecdf7;outline-offset:3px}button:disabled{opacity:.65;cursor:wait;transform:none}
     .note{max-width:260px;padding:9px 12px;border:1px solid #cfd9de;border-radius:12px;color:#0f1419;background:#fffffff2;box-shadow:0 7px 22px #0002;font-size:12px;line-height:1.45;opacity:0;transform:translateY(4px);pointer-events:none;transition:.16s}.note.show{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){button,.note{transition:none}}
   </style><div class="wrap"><div class="note" role="status" aria-live="polite"></div><button type="button" title="快速保存当前 X 帖子" aria-label="快速保存当前 X 帖子">存</button></div>`
