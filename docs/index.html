@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X to Markdown — 将 X 帖子保存为本地 Markdown</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); color: #fff; }
+
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+    .section { margin-bottom: 48px; }
+    .section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .feature-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .feature h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+    .feature p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    .install-steps {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .step-content p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .step-content code {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .zip-note {
+      background: #1a2a1a;
+      border: 1px solid #22c55e33;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .zip-note .icon { font-size: 1.3rem; }
+    .zip-note p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .zip-note strong { color: var(--green); }
+
+    .keyboard-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .keyboard-note h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+    .keyboard-note p { font-size: 0.85rem; color: var(--muted); }
+    .kbd {
+      display: inline-block;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>X to Markdown</h1>
+  <span class="badge">Chrome 扩展</span>
+  <p>将你有权访问的单条 X 帖子保存为本地 Markdown 文件，方便阅读、研究和知识整理。</p>
+  <a id="download-btn" class="btn-primary" href="#">
+    <span>⬇️</span>
+    <span id="btn-text">下载安装包</span>
+  </a>
+  <p style="font-size: 0.8rem; margin-top: 12px; margin-bottom: 0;">
+    当前版本：<span id="version-text">加载中…</span>
+  </p>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <h2>功能特点</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📄</div>
+        <h3>精确识别单条帖子</h3>
+        <p>根据 URL 精确匹配当前帖子，不误存回复或推荐内容。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🖼️</div>
+        <h3>可选图片归档</h3>
+        <p>下载帖子图片到本地 images/ 文件夹，导出为 ZIP 包。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⌨️</div>
+        <h3>快捷键支持</h3>
+        <p>按 <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> 直接保存当前帖子。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>本地优先</h3>
+        <p>所有处理在浏览器本地完成，不上传任何内容。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>安装步骤</h2>
+    <div class="install-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>下载安装包</h3>
+          <p>点击上方「下载安装包」按钮，获取 <code>dist.zip</code> 文件并解压。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>打开扩展页面</h3>
+          <p>在 Chrome 地址栏打开 <code>chrome://extensions/</code>。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>开启开发者模式</h3>
+          <p>页面右上角找到「开发者模式」，将其开启。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>加载已解压的扩展程序</h3>
+          <p>点击左上角「加载已解压的扩展程序」，选择解压出来的 <code>dist</code> 文件夹。</p>
+        </div>
+      </div>
+
+      <div class="zip-note">
+        <div class="icon">💡</div>
+        <div>
+          <p><strong>每次更新后</strong>，请回到 <code>chrome://extensions/</code> 点击扩展卡片右下角的刷新按钮，或重新加载。</p>
+          <p style="margin-top: 8px;">快捷键更新后，可能需要刷新帖子页面才生效。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="keyboard-note">
+    <h3>⌨️ 快捷键</h3>
+    <p>
+      在 X 帖子详情页按 <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> 直接触发保存。<br>
+      如需修改，请打开 <code>chrome://extensions/shortcuts</code>。
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    X to Markdown 是本地格式转换工具，不提供帖子内容，不代表取得任何授权。
+    &nbsp;·&nbsp;
+    <a href="https://github.com/anonymous99-Rise/x-to-markdown">GitHub</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/anonymous99-Rise/x-to-markdown/releases">Releases</a>
+  </p>
+</footer>
+
+<script>
+  // Redirect to latest GitHub Release asset
+  async function init() {
+    try {
+      const repo = 'anonymous99-Rise/x-to-markdown';
+      const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
+      if (!res.ok) throw new Error('API 请求失败');
+      const data = await res.json();
+      const version = data.tag_name ? data.tag_name.replace('v', '') : data.tag_name;
+
+      document.getElementById('version-text').textContent = `v${version}`;
+
+      const asset = data.assets?.find(a => a.name === 'dist.zip');
+      if (asset) {
+        document.getElementById('download-btn').href = asset.browser_download_url;
+      } else {
+        // Fallback: link to the release page itself
+        document.getElementById('download-btn').href = data.html_url;
+        document.getElementById('btn-text').textContent = '查看 Release';
+      }
+    } catch (e) {
+      document.getElementById('version-text').textContent = 'v0.2.0';
+      document.getElementById('download-btn').href = 'https://github.com/anonymous99-Rise/x-to-markdown/releases';
+    }
+  }
+  init();
+</script>
+
+</body>
+</html>
