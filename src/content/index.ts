@@ -1,8 +1,20 @@
 import { postToMarkdown } from '../core/markdown'
-import type { ContentRequest, ContentResponse, ExportRequest, ExportResponse } from '../core/types'
+import { createSingleFlight } from '../core/single-flight'
+import type { ContentRequest, ContentResponse, ExportRequest, ExportResponse, QuickSaveResponse } from '../core/types'
 import { extractXPost, isPostPage } from './extractor'
 
-chrome.runtime.onMessage.addListener((request: ContentRequest, _sender, reply: (value: ContentResponse) => void) => {
+let quickSaveHandler: (() => Promise<QuickSaveResponse>) | undefined
+
+chrome.runtime.onMessage.addListener((request: ContentRequest, _sender, reply: (value: ContentResponse | QuickSaveResponse) => void) => {
+  if (request.type === 'QUICK_SAVE') {
+    if (!quickSaveHandler) {
+      reply({ success: false, error: '请打开一条 X 帖子的详情页后再试' })
+      return false
+    }
+    void quickSaveHandler().then(reply)
+    return true
+  }
+
   try {
     const post = extractXPost()
     reply(request.type === 'EXTRACT_POST'
@@ -40,7 +52,8 @@ function mountQuickSave(): void {
     if (timer) clearTimeout(timer)
     timer = window.setTimeout(() => note.classList.remove('show'), 5000)
   }
-  button.addEventListener('click', async () => {
+
+  const save = createSingleFlight<QuickSaveResponse>(async () => {
     button.disabled = true; button.textContent = '…'
     try {
       const stored = await chrome.storage.local.get('downloadImages')
@@ -48,10 +61,23 @@ function mountQuickSave(): void {
       show(downloadImages ? '正在下载图片并打包…' : '正在生成 Markdown…')
       const post = extractXPost()
       const request: ExportRequest = { type: 'EXPORT_POST', post, markdown: postToMarkdown(post), downloadImages }
-      show(summary(await chrome.runtime.sendMessage(request) as ExportResponse, downloadImages))
-    } catch (error) { show(error instanceof Error ? error.message : '保存失败，请稍后重试') }
-    finally { button.disabled = false; button.textContent = '存' }
+      const response = await chrome.runtime.sendMessage(request) as ExportResponse
+      show(summary(response, downloadImages))
+      return response.success ? { success: true } : response
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '保存失败，请稍后重试'
+      show(message)
+      return { success: false, error: message }
+    } finally {
+      button.disabled = false; button.textContent = '存'
+    }
   })
+
+  quickSaveHandler = () => {
+    if (save.isRunning()) show('正在保存，请稍候…')
+    return save.run()
+  }
+  button.addEventListener('click', () => { void quickSaveHandler?.() })
   document.documentElement.append(host)
 }
 

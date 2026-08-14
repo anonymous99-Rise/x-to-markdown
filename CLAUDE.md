@@ -18,8 +18,10 @@
 - TypeScript + Vite，UI 使用原生 DOM API
 - Content Script 负责识别、提取和注入 Shadow DOM 快捷入口
 - Background 负责跨域图片获取、ZIP 打包和浏览器下载
+- Chrome `commands` 快捷键由 Background 路由到当前标签页，并复用 Content Script 的保存流程
 - Popup 负责偏好设置、导出触发和状态反馈
 - `chrome.storage.local` 只保存“是否下载图片”的偏好
+- 页面按钮与快捷键必须使用同一保存函数，并阻止并发重复导出
 - 所有解析和归档均在用户浏览器本地完成
 
 ## 目录约定

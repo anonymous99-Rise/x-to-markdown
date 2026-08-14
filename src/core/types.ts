@@ -10,9 +10,16 @@ export interface XPost {
   images: PostImage[]
 }
 
-export type ContentRequest = { type: 'INSPECT_POST' } | { type: 'EXTRACT_POST' }
+export type ContentRequest =
+  | { type: 'INSPECT_POST' }
+  | { type: 'EXTRACT_POST' }
+  | { type: 'QUICK_SAVE' }
 export type ContentResponse =
   | { success: true; post: XPost; markdown?: string }
+  | { success: false; error: string }
+
+export type QuickSaveResponse =
+  | { success: true }
   | { success: false; error: string }
 
 export interface ExportRequest {
