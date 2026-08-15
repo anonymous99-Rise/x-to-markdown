@@ -64,6 +64,12 @@ username-statusId.zip
 
 项目不设置服务器，不收集账号、Cookie、Token、浏览历史或导出内容。导出 Markdown 若保留远程图片，阅读器打开文件时仍可能向 X 图片服务器发起请求。
 
+Chrome Web Store 上架材料：
+
+- [商店名称、摘要、详细描述和审核说明](./docs/store/listing-zh-CN.md)
+- [隐私政策](./docs/legal/privacy-policy-zh-CN.md)
+- [使用条款](./docs/legal/terms-of-use-zh-CN.md)
+
 ## 合规使用
 
 - 仅保存你能够正常访问且有权使用的帖子；
