@@ -30,6 +30,7 @@
 - `src/background/`：图片下载、ZIP 归档和文件下载
 - `src/core/`：领域类型、Markdown、媒体与文件名规则
 - `src/popup/`：扩展弹窗
+- `public/icons/`：扩展图标母版及 16/32/48/128 像素 PNG，不使用平台官方商标
 - `tests/`：与核心源码对应的单元测试
 - `dist/`：构建产物，不提交 Git
 
