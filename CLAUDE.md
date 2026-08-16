@@ -31,6 +31,8 @@
 - `src/core/`：领域类型、Markdown、媒体与文件名规则
 - `src/popup/`：扩展弹窗
 - `public/icons/`：扩展图标母版及 16/32/48/128 像素 PNG，不使用平台官方商标
+- `site/`：Chrome Web Store 使用的公开首页、支持页和隐私政策静态站点，不加载第三方脚本或统计服务
+- `.github/workflows/`：GitHub Pages 自动部署流程
 - `tests/`：与核心源码对应的单元测试
 - `dist/`：构建产物，不提交 Git
 
@@ -41,6 +43,7 @@
 - 文件名兼容 Windows 和 macOS
 - 页面入口使用 Shadow DOM，支持键盘焦点和 reduced motion
 - 不记录或上传帖子、Cookie、Token 或浏览历史
+- 公开站点必须提供可直接访问的 `/`、`/support/` 和 `/privacy/`，法律说明与扩展真实行为一致
 - 提交前检查最终差异，只提交当前任务文件
 
 ## Git 约定

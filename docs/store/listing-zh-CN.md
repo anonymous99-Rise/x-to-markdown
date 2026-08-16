@@ -40,9 +40,9 @@ X to Markdown 帮助你把当前打开且有权访问的单条 X 帖子保存到
 
 ## 后台链接
 
-- 主页：https://github.com/wangshan9870/x-to-markdown
-- 支持：https://github.com/wangshan9870/x-to-markdown/issues
-- 隐私政策：发布前将 `docs/legal/privacy-policy-zh-CN.md` 部署到稳定 HTTPS 页面
+- 主页：https://wangshan9870.github.io/x-to-markdown/
+- 支持：https://wangshan9870.github.io/x-to-markdown/support/
+- 隐私政策：https://wangshan9870.github.io/x-to-markdown/privacy/
 
 ## 审核人员说明
 

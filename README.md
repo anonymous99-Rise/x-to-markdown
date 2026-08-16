@@ -4,6 +4,10 @@
 
 将你有权访问的单条 X 帖子保存为 Markdown，方便个人阅读、研究和知识整理。
 
+- [产品首页](https://wangshan9870.github.io/x-to-markdown/)
+- [使用支持](https://wangshan9870.github.io/x-to-markdown/support/)
+- [隐私政策](https://wangshan9870.github.io/x-to-markdown/privacy/)
+
 X to Markdown 是本地优先的 Chrome 扩展：不需要账号、后端或数据库，帖子解析、图片下载和归档均在你的浏览器中完成。
 
 > [!IMPORTANT]
