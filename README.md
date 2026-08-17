@@ -1,6 +1,12 @@
 # X to Markdown
 
+<img src="./public/icons/icon-128.png" alt="X to Markdown 图标" width="96">
+
 将你有权访问的单条 X 帖子保存为 Markdown，方便个人阅读、研究和知识整理。
+
+- [产品首页](https://wangshan9870.github.io/x-to-markdown/)
+- [使用支持](https://wangshan9870.github.io/x-to-markdown/support/)
+- [隐私政策](https://wangshan9870.github.io/x-to-markdown/privacy/)
 
 X to Markdown 是本地优先的 Chrome 扩展：不需要账号、后端或数据库，帖子解析、图片下载和归档均在你的浏览器中完成。
 
@@ -26,7 +32,7 @@ X to Markdown 是本地优先的 Chrome 扩展：不需要账号、后端或数�
 
 如需修改快捷键，请打开 `chrome://extensions/shortcuts`。如果扩展刚更新但当前帖子页尚未刷新，快捷保存会通过扩展图标提示刷新页面后重试。
 
-当前版本：`v0.2.0`。
+当前版本：`v0.3.0`。
 
 ## 安装
 
@@ -61,6 +67,12 @@ username-statusId.zip
 - `pbs.twimg.com`：仅在用户选择图片归档后获取帖子图片。
 
 项目不设置服务器，不收集账号、Cookie、Token、浏览历史或导出内容。导出 Markdown 若保留远程图片，阅读器打开文件时仍可能向 X 图片服务器发起请求。
+
+Chrome Web Store 上架材料：
+
+- [商店名称、摘要、详细描述和审核说明](./docs/store/listing-zh-CN.md)
+- [隐私政策](./docs/legal/privacy-policy-zh-CN.md)
+- [使用条款](./docs/legal/terms-of-use-zh-CN.md)
 
 ## 合规使用
 

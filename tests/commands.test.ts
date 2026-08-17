@@ -4,12 +4,14 @@ import { createSingleFlight } from '../src/core/single-flight'
 
 const staticManifest = manifest as unknown as {
   version: string
+  icons: Record<number, string>
   commands: Record<string, { suggested_key?: { default?: string } }>
 }
 
 describe('quick save command', () => {
   it('registers the X shortcut and feature version', () => {
-    expect(staticManifest.version).toBe('0.2.0')
+    expect(staticManifest.version).toBe('0.3.0')
+    expect(staticManifest.icons[128]).toBe('icons/icon-128.png')
     expect(staticManifest.commands['quick-save']?.suggested_key?.default).toBe('Alt+Shift+X')
   })
 
